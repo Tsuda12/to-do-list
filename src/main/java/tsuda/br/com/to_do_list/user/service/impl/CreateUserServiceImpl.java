@@ -4,9 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import tsuda.br.com.to_do_list.exceptions.GenericBusinessRuleException;
 import tsuda.br.com.to_do_list.user.dto.request.CreateUserRequest;
 import tsuda.br.com.to_do_list.user.entity.User;
-import tsuda.br.com.to_do_list.user.enums.UserRolesEnum;
 import tsuda.br.com.to_do_list.user.mapper.UserMapper;
 import tsuda.br.com.to_do_list.user.repository.UserRepository;
 import tsuda.br.com.to_do_list.user.service.CreateUserService;
@@ -14,6 +14,7 @@ import tsuda.br.com.to_do_list.utils.MessageUtils;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class CreateUserServiceImpl implements CreateUserService {
@@ -28,11 +29,16 @@ public class CreateUserServiceImpl implements CreateUserService {
 
     @Override
     public ResponseEntity<Map<String, Object>> execute(CreateUserRequest request) {
-        User user = UserMapper.toEntity(request);
+        Optional<User> existingUserByEmail = userRepository.findByEmail(request.email());
 
-        encoder.encode(user.getPassword());
+        if (existingUserByEmail.isEmpty()) {
+            User user = UserMapper.toEntity(request);
+            user.setPassword(encoder.encode(request.password()));
 
-        userRepository.save(user);
+            userRepository.save(user);
+        } else {
+            throw new GenericBusinessRuleException(MessageUtils.USER_EXISTS);
+        }
 
         Map<String, Object> body = new HashMap<>();
         body.put(MessageUtils.RESPONSE, MessageUtils.USER_CREATED);
