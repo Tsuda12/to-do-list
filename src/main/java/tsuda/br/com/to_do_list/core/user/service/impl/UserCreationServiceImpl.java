@@ -17,12 +17,12 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class UserCreationCreationServiceImpl implements UserCreationService {
+public class UserCreationServiceImpl implements UserCreationService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder encoder;
 
-    public UserCreationCreationServiceImpl(UserRepository userRepository, PasswordEncoder encoder) {
+    public UserCreationServiceImpl(UserRepository userRepository, PasswordEncoder encoder) {
         this.userRepository = userRepository;
         this.encoder = encoder;
     }

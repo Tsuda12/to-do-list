@@ -13,4 +13,5 @@ public class MessageUtils {
 
     public static final String USER_CREATED = "Usuário criado!";
     public static final String USER_EXISTS = "Este usuário já foi cadastrado!";
+    public static final String USER_NOT_EXISTS = "Este usuário não foi cadastrado!";
 }

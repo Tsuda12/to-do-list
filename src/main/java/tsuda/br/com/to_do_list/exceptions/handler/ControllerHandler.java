@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import tsuda.br.com.to_do_list.exceptions.GenericBusinessRuleException;
+import tsuda.br.com.to_do_list.exceptions.GenericNotFoundException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,5 +20,14 @@ public class ControllerHandler {
         body.put("message", ex.getMessage());
 
         return new ResponseEntity<>(body, HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
+    @ExceptionHandler(GenericNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleGenericNotFoundException(GenericNotFoundException ex) {
+
+        Map<String, Object> body = new HashMap<>();
+        body.put("message", ex.getMessage());
+
+        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 }
