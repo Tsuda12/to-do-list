@@ -4,10 +4,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import tsuda.br.com.to_do_list.core.user.enums.UserRolesEnum;
+import tsuda.br.com.to_do_list.core.user.mapper.UserMapper;
 import tsuda.br.com.to_do_list.exceptions.GenericBusinessRuleException;
 import tsuda.br.com.to_do_list.core.user.dto.request.CreateUserRequest;
 import tsuda.br.com.to_do_list.core.user.entity.User;
-import tsuda.br.com.to_do_list.core.user.mapper.UserMapper;
 import tsuda.br.com.to_do_list.core.user.repository.UserRepository;
 import tsuda.br.com.to_do_list.core.user.service.UserCreationService;
 import tsuda.br.com.to_do_list.utils.MessageUtils;
@@ -21,10 +22,12 @@ public class UserCreationServiceImpl implements UserCreationService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder encoder;
+    private final UserMapper userMapper;
 
-    public UserCreationServiceImpl(UserRepository userRepository, PasswordEncoder encoder) {
+    public UserCreationServiceImpl(UserRepository userRepository, PasswordEncoder encoder, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.encoder = encoder;
+        this.userMapper = userMapper;
     }
 
     @Override
@@ -32,7 +35,8 @@ public class UserCreationServiceImpl implements UserCreationService {
         Optional<User> existingUserByEmail = userRepository.findByEmail(request.email());
 
         if (existingUserByEmail.isEmpty()) {
-            User user = UserMapper.toEntity(request);
+            User user = userMapper.toEntity(request);
+            user.setRole(UserRolesEnum.ROLE_USER);
             user.setPassword(encoder.encode(request.password()));
 
             userRepository.save(user);
