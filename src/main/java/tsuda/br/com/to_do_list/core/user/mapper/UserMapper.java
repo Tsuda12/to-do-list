@@ -1,8 +1,8 @@
-package tsuda.br.com.to_do_list.user.mapper;
+package tsuda.br.com.to_do_list.core.user.mapper;
 
-import tsuda.br.com.to_do_list.user.dto.request.CreateUserRequest;
-import tsuda.br.com.to_do_list.user.entity.User;
-import tsuda.br.com.to_do_list.user.enums.UserRolesEnum;
+import tsuda.br.com.to_do_list.core.user.dto.request.CreateUserRequest;
+import tsuda.br.com.to_do_list.core.user.entity.User;
+import tsuda.br.com.to_do_list.core.user.enums.UserRolesEnum;
 
 public class UserMapper {
 

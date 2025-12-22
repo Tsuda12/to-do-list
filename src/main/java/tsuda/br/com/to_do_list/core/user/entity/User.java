@@ -1,11 +1,11 @@
-package tsuda.br.com.to_do_list.user.entity;
+package tsuda.br.com.to_do_list.core.user.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import tsuda.br.com.to_do_list.user.enums.UserRolesEnum;
+import tsuda.br.com.to_do_list.core.user.enums.UserRolesEnum;
 
 import java.util.Collection;
 import java.util.List;

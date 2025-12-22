@@ -1,7 +1,7 @@
-package tsuda.br.com.to_do_list.user.service;
+package tsuda.br.com.to_do_list.core.user.service;
 
 import org.springframework.http.ResponseEntity;
-import tsuda.br.com.to_do_list.user.dto.request.CreateUserRequest;
+import tsuda.br.com.to_do_list.core.user.dto.request.CreateUserRequest;
 
 import java.util.Map;
 

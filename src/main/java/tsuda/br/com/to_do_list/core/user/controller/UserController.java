@@ -1,4 +1,4 @@
-package tsuda.br.com.to_do_list.user.controller;
+package tsuda.br.com.to_do_list.core.user.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tsuda.br.com.to_do_list.config.SecurityConfig;
-import tsuda.br.com.to_do_list.user.dto.request.CreateUserRequest;
-import tsuda.br.com.to_do_list.user.service.CreateUserService;
+import tsuda.br.com.to_do_list.core.user.dto.request.CreateUserRequest;
+import tsuda.br.com.to_do_list.core.user.service.CreateUserService;
 
 import java.util.Map;
 

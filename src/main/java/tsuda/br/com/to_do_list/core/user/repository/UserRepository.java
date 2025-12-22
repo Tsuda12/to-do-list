@@ -1,8 +1,8 @@
-package tsuda.br.com.to_do_list.user.repository;
+package tsuda.br.com.to_do_list.core.user.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import tsuda.br.com.to_do_list.user.entity.User;
+import tsuda.br.com.to_do_list.core.user.entity.User;
 
 import java.util.Optional;
 
