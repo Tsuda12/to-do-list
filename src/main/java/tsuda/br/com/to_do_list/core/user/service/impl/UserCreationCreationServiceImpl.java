@@ -9,7 +9,7 @@ import tsuda.br.com.to_do_list.core.user.dto.request.CreateUserRequest;
 import tsuda.br.com.to_do_list.core.user.entity.User;
 import tsuda.br.com.to_do_list.core.user.mapper.UserMapper;
 import tsuda.br.com.to_do_list.core.user.repository.UserRepository;
-import tsuda.br.com.to_do_list.core.user.service.CreateUserService;
+import tsuda.br.com.to_do_list.core.user.service.UserCreationService;
 import tsuda.br.com.to_do_list.utils.MessageUtils;
 
 import java.util.HashMap;
@@ -17,12 +17,12 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class CreateUserServiceImpl implements CreateUserService {
+public class UserCreationCreationServiceImpl implements UserCreationService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder encoder;
 
-    public CreateUserServiceImpl(UserRepository userRepository, PasswordEncoder encoder) {
+    public UserCreationCreationServiceImpl(UserRepository userRepository, PasswordEncoder encoder) {
         this.userRepository = userRepository;
         this.encoder = encoder;
     }
