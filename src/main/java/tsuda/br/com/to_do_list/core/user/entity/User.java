@@ -7,6 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import tsuda.br.com.to_do_list.core.user.enums.UserRolesEnum;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -27,14 +28,10 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserRolesEnum role;
 
-    public User() {}
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
-    public User(String id, String name, String email, String password) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
+    public User() {}
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

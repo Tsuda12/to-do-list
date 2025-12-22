@@ -16,6 +16,7 @@ import tsuda.br.com.to_do_list.exceptions.GenericNotFoundException;
 import tsuda.br.com.to_do_list.security.JWTUserData;
 import tsuda.br.com.to_do_list.utils.MessageUtils;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -24,11 +25,11 @@ import java.util.Optional;
 public class UserUpdateServiceImpl implements UserUpdateService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder encoder;
+    private final UserMapper userMapper;
 
-    public UserUpdateServiceImpl(UserRepository userRepository, PasswordEncoder encoder) {
+    public UserUpdateServiceImpl(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
-        this.encoder = encoder;
+        this.userMapper = userMapper;
     }
 
     @Override
@@ -47,8 +48,7 @@ public class UserUpdateServiceImpl implements UserUpdateService {
             throw new GenericBusinessRuleException(MessageUtils.USER_EXISTS);
         }
 
-        User updatedUser = UserMapper.toUpdatedUser(user, request);
-        updatedUser.setPassword(encoder.encode(request.password()));
+        User updatedUser = userMapper.toUpdatedUser(user, request);
 
         userRepository.save(updatedUser);
 

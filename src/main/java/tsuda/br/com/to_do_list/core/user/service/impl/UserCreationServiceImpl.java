@@ -21,11 +21,11 @@ import java.util.Optional;
 public class UserCreationServiceImpl implements UserCreationService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder encoder;
+    private final UserMapper userMapper;
 
-    public UserCreationServiceImpl(UserRepository userRepository, PasswordEncoder encoder) {
+    public UserCreationServiceImpl(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
-        this.encoder = encoder;
+        this.userMapper = userMapper;
     }
 
     @Override
@@ -33,9 +33,7 @@ public class UserCreationServiceImpl implements UserCreationService {
         Optional<User> existingUserByEmail = userRepository.findByEmail(request.email());
 
         if (existingUserByEmail.isEmpty()) {
-            User user = UserMapper.toEntity(request);
-            user.setRole(UserRolesEnum.ROLE_USER);
-            user.setPassword(encoder.encode(request.password()));
+            User user = userMapper.toEntity(request);
 
             userRepository.save(user);
         } else {
