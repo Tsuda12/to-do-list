@@ -23,11 +23,12 @@ public class Task {
     private String description;
 
     @ManyToOne
-    @Column(name = "user_fk_id")
+    @JoinColumn(name = "user_fk_id")
     private User user;
 
     private LocalDateTime startedAt;
     private LocalDateTime endedAt;
+    private boolean finished;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
