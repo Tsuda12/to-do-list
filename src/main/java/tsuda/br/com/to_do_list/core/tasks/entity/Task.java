@@ -3,6 +3,7 @@ package tsuda.br.com.to_do_list.core.tasks.entity;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import tsuda.br.com.to_do_list.core.user.entity.User;
 
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 
 @Table(name = "tasks")
 @Entity
+@NoArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode

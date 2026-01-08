@@ -11,9 +11,17 @@ public class MessageUtils {
 
     public static final String PASSWORD_REQUIRED = "Senha é obrigatória!";
 
+    public static final String DESCRIPTION_REQUIRED = "Descrição é obrigatória!";
+
+    public static final String STARTED_AT_REQUIRED = "Data de inicio é obrigatória!";
+
+    public static final String ENDED_AT_REQUIRED = "Data de fim é obrigatória!";
+
     public static final String USER_CREATED = "Usuário criado!";
     public static final String USER_UPDATED = "Usuário atualizado!";
     public static final String USER_EXISTS = "Este usuário já foi cadastrado!";
     public static final String USER_NOT_EXISTS = "Este usuário não foi cadastrado!";
     public static final String USER_ACCESS_DENIED = "Acesso negado!";
+
+    public static final String TASK_CREATED = "Tarefa criada!";
 }
