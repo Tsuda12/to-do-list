@@ -6,11 +6,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tsuda.br.com.to_do_list.core.tasks.dto.request.TaskCreationRequest;
+import tsuda.br.com.to_do_list.core.tasks.service.GetAllTasksService;
 import tsuda.br.com.to_do_list.core.tasks.service.impl.TaskCreationServiceImpl;
 import tsuda.br.com.to_do_list.security.SecurityConfig;
 
@@ -23,9 +21,13 @@ import java.util.Map;
 public class TaskController {
 
     private final TaskCreationServiceImpl taskCreationService;
+    private final GetAllTasksService getAllTasksService;
 
-    public TaskController(TaskCreationServiceImpl taskCreationService) {
+    public TaskController(TaskCreationServiceImpl taskCreationService,
+                          GetAllTasksService getAllTasksService) {
+
         this.taskCreationService = taskCreationService;
+        this.getAllTasksService = getAllTasksService;
     }
 
     @Operation(summary = "Criação de tarefa")
@@ -34,5 +36,14 @@ public class TaskController {
                                                       @RequestBody @Valid TaskCreationRequest request) {
 
         return taskCreationService.execute(authentication, request);
+    }
+
+    @Operation(summary = "Mostrar todas as tarefas do usuário")
+    @GetMapping
+    public ResponseEntity<Map<String, Object>> getAll(Authentication authentication,
+                                                      @RequestParam(defaultValue = "1") int page,
+                                                      @RequestParam(defaultValue = "5") int size) {
+
+        return getAllTasksService.execute(authentication, page, size);
     }
 }
