@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import tsuda.br.com.to_do_list.core.tasks.dto.response.TaskResponse;
 import tsuda.br.com.to_do_list.core.tasks.entity.Task;
 import tsuda.br.com.to_do_list.core.tasks.repository.TaskRepository;
 import tsuda.br.com.to_do_list.core.tasks.service.GetAllTasksService;
@@ -42,8 +43,12 @@ public class GetAllTasksServiceImpl implements GetAllTasksService {
         Page<Task> allTasks = taskRepository.findAll(TaskSpecification.findByUser(user.getId()),
                 PageRequest.of(page > 0 ? page - 1 : 0, size));
 
+        Page<TaskResponse> response = allTasks.map(
+                task -> new TaskResponse(task.getName(), task.getName(), task.getStartedAt(), task.getEndedAt())
+        );
+
         Map<String, Object> body = new HashMap<>();
-        body.put(MessageUtils.RESPONSE, allTasks);
+        body.put(MessageUtils.RESPONSE, response);
 
         return new ResponseEntity<>(body, HttpStatus.OK);
     }
