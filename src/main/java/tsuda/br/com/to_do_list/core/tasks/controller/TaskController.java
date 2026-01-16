@@ -8,8 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import tsuda.br.com.to_do_list.core.tasks.dto.request.TaskCreationRequest;
+import tsuda.br.com.to_do_list.core.tasks.dto.request.TaskUpdateRequest;
 import tsuda.br.com.to_do_list.core.tasks.service.GetAllTasksService;
+import tsuda.br.com.to_do_list.core.tasks.service.TaskUpdateService;
 import tsuda.br.com.to_do_list.core.tasks.service.impl.TaskCreationServiceImpl;
+import tsuda.br.com.to_do_list.core.tasks.service.impl.TaskUpdateServiceImpl;
 import tsuda.br.com.to_do_list.security.SecurityConfig;
 
 import java.util.Map;
@@ -22,12 +25,15 @@ public class TaskController {
 
     private final TaskCreationServiceImpl taskCreationService;
     private final GetAllTasksService getAllTasksService;
+    private final TaskUpdateService taskUpdateService;
 
     public TaskController(TaskCreationServiceImpl taskCreationService,
-                          GetAllTasksService getAllTasksService) {
+                          GetAllTasksService getAllTasksService,
+                          TaskUpdateService taskUpdateService) {
 
         this.taskCreationService = taskCreationService;
         this.getAllTasksService = getAllTasksService;
+        this.taskUpdateService = taskUpdateService;
     }
 
     @Operation(summary = "Criação de tarefa")
@@ -45,5 +51,14 @@ public class TaskController {
                                                       @RequestParam(defaultValue = "5") int size) {
 
         return getAllTasksService.execute(authentication, page, size);
+    }
+
+    @Operation(summary = "Atualizar tarefa")
+    @PutMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> updateById(Authentication authentication,
+                                                          @PathVariable(name = "id") String taskId,
+                                                          @RequestBody TaskUpdateRequest request) {
+
+        return taskUpdateService.execute(authentication, taskId, request);
     }
 }
