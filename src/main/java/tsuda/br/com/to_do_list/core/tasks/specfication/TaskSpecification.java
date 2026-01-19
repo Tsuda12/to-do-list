@@ -15,4 +15,10 @@ public class TaskSpecification {
             return builder.equal(root.get("user").get("id"), userId);
         };
     }
+
+    public static Specification<Task> findByFinished() {
+        return (root, query, builder) -> {
+            return builder.equal(root.get("finished"), false);
+        };
+    }
 }

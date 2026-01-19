@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import tsuda.br.com.to_do_list.core.tasks.dto.request.TaskCreationRequest;
 import tsuda.br.com.to_do_list.core.tasks.dto.request.TaskUpdateRequest;
 import tsuda.br.com.to_do_list.core.tasks.service.GetAllTasksService;
+import tsuda.br.com.to_do_list.core.tasks.service.TaskFinishService;
 import tsuda.br.com.to_do_list.core.tasks.service.TaskUpdateService;
 import tsuda.br.com.to_do_list.core.tasks.service.impl.TaskCreationServiceImpl;
 import tsuda.br.com.to_do_list.core.tasks.service.impl.TaskUpdateServiceImpl;
@@ -26,14 +27,17 @@ public class TaskController {
     private final TaskCreationServiceImpl taskCreationService;
     private final GetAllTasksService getAllTasksService;
     private final TaskUpdateService taskUpdateService;
+    private final TaskFinishService taskFinishService;
 
     public TaskController(TaskCreationServiceImpl taskCreationService,
                           GetAllTasksService getAllTasksService,
-                          TaskUpdateService taskUpdateService) {
+                          TaskUpdateService taskUpdateService,
+                          TaskFinishService taskFinishService) {
 
         this.taskCreationService = taskCreationService;
         this.getAllTasksService = getAllTasksService;
         this.taskUpdateService = taskUpdateService;
+        this.taskFinishService = taskFinishService;
     }
 
     @Operation(summary = "Criação de tarefa")
@@ -60,5 +64,13 @@ public class TaskController {
                                                           @RequestBody TaskUpdateRequest request) {
 
         return taskUpdateService.execute(authentication, taskId, request);
+    }
+
+    @Operation(summary = "Finalizar tarefa")
+    @PutMapping("/finish/{id}")
+    public ResponseEntity<Map<String, Object>> finishTask(Authentication authentication,
+                                                          @PathVariable(name = "id") String taskId) {
+
+        return taskFinishService.execute(authentication, taskId);
     }
 }

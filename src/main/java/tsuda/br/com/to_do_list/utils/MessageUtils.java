@@ -25,6 +25,7 @@ public class MessageUtils {
 
     public static final String TASK_CREATED = "Tarefa criada!";
     public static final String TASK_UPDATED = "Tarefa atualizada!";
+    public static final String TASK_FINISHED = "Tarefa finalizada!";
     public static final String TASK_NOT_FOUND = "Tarefa não encontrada!";
     public static final String TASK_BELONGS_ANOTHER_USER = "Tarefa pertence a outro usuário!";
 }
